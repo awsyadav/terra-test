@@ -2,7 +2,7 @@ pipeline {
     agent any
     parameters {
         string(name: 'project_name', defaultValue: 'Packer Pipeline', description: 'Jenkins Pipeline for Packers')
-        string(name: "git_codebase", defaultValue: "git@ec2-18-200-215-85.eu-west-1.compute.amazonaws.com:ibm-admin/sastoaws-infra.git", description: "git location of the terraform config files")
+        string(name: "git_codebase", defaultValue: "https://github.com/awsyadav/terra-test.git", description: "git location of packer config files")
         string(name: "main_dir_name", defaultValue: "SAS_to_S3_Project/main", description: "main directory to execute terraform main.tf from")
         string(name: "tf_vars", defaultValue: "", description: "TF vars to be passed in TF command. ex - image_id=ami-abc123")
     }
@@ -25,7 +25,7 @@ pipeline {
           }
           stage('code checkout') {
                steps {
-                    git branch: 'master', url: 'https://github.com/aleti-pavan/packer-ansible-terraform-demo.git'
+                    git branch: 'master', url: 'https://github.com/awsyadav/terra-test.git'
                     }
           }
           stage('Build AMI') {
@@ -44,17 +44,5 @@ pipeline {
                     }
                 }
           }
-         stage('Terraform Deploy'){
-             steps {
-                 dir('./terraform'){
-
-                 sh  """
-                     terraform init; terraform plan; terraform apply -auto-approve -var 'access_key=$access_key' -var 'secret_key=$secret_key'
-                     """
-
-                 }
-
-             }
-         }
     }
 }
