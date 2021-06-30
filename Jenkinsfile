@@ -14,12 +14,9 @@ pipeline {
     stages {
           stage('Install Packer') {
               steps {
-                    sh "sudo yum install wget zip -y"
-                    sh "cd /tmp"
-                    sh "curl -o bin_packer.zip https://releases.hashicorp.com/packer/$packer_version/packer_'$packer_version'_linux_amd64.zip"
-                    sh "unzip bin_packer.zip"
-                    sh "sudo mv packer /usr/bin"
-                    sh "rm -rf bin_packer.zip"
+                    sh "sudo yum install -y yum-utils"
+                    sh "sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo"
+                    sh "sudo yum -y install packer"
                     sh "packer version"
               }
           }
