@@ -25,7 +25,7 @@ pipeline {
           }
           stage('code checkout') {
                steps {
-                    git branch: 'master', url: 'https://github.com/awsyadav/terra-test.git'
+                    git credentialsId: '628ccbff-7941-4ae6-8687-aabf673d5ac8', url: 'https://github.com/awsyadav/terra-test.git'
                     }
           }
           stage('Build AMI') {
@@ -35,14 +35,6 @@ pipeline {
                     }
                 }
           }
-          stage('Deploy??') {
-                steps {
-                    script {
-                       timeout(time: 2, unit: 'MINUTES') {
-                          input(id: "Deploy Gate", message: "Want to Deploy ${params.project_name}?", ok: 'Deploy??')
-                       }
-                    }
-                }
-          }
+
     }
 }
