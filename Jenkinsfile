@@ -25,7 +25,7 @@ pipeline {
           }
           stage('code checkout') {
                steps {
-                    git credentialsId: '628ccbff-7941-4ae6-8687-aabf673d5ac8', url: 'https://github.com/awsyadav/terra-test.git'
+                    git credentialsId: '628ccbff-7941-4ae6-8687-aabf673d5ac8', url: "${params.git_codebase}"
                     }
           }
           stage('Build AMI') {
